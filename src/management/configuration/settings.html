@@ -64,6 +64,10 @@
             </div>
             <ul class="aui-nav">
                 <li class="iterable-item" ui-sref-active="aui-nav-selected"
+                    permission permission-only='management-user-r'>
+                    <a class="execute" ui-sref="management.settings.users">Users</a>
+                </li>
+                <li class="iterable-item" ui-sref-active="aui-nav-selected"
                     permission permission-only='management-group-r'>
                     <a class="execute" ui-sref="management.settings.groups">Groups</a>
                 </li>

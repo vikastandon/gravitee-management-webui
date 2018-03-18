@@ -23,22 +23,26 @@ class GroupService {
     this.groupsURL = `${Constants.baseURL}configuration/groups`;
   }
 
-  list() {
+  get(groupId: string): ng.IPromise<any>{
+    return this.$http.get(`${this.groupsURL}/${groupId}`);
+  };
+
+  list(): ng.IPromise<any> {
     return this.$http.get(this.groupsURL);
   }
 
-  getMembers(groupId) {
+  getMembers(groupId): ng.IPromise<any> {
     return this.$http.get([this.groupsURL, groupId, "members"].join("/"));
   }
 
-  create(newGroup) {
+  create(newGroup): ng.IPromise<any> {
     if(newGroup) {
       let grpEntity = GroupService._mapToEntity(newGroup);
       return this.$http.post(this.groupsURL, grpEntity);
     }
   }
 
-  update(groupId, updatedGroup) {
+  update(groupId, updatedGroup): ng.IPromise<any> {
     if(groupId && updatedGroup) {
       let grpEntity = GroupService._mapToEntity(updatedGroup);
       return this.$http.put( [this.groupsURL, groupId].join("/"), grpEntity);
@@ -62,13 +66,13 @@ class GroupService {
     return grpEntity;
   }
 
-  remove(groupId) {
+  remove(groupId): ng.IPromise<any> {
     if(groupId) {
       return this.$http.delete([this.groupsURL, groupId].join("/"));
     }
   }
 
-  addOrUpdateMember(group, member) {
+  addOrUpdateMember(group, member): ng.IPromise<any> {
     let groupRole = [];
     //at least one role is mandatory
     let rolenames = _.filter(_.values(member.roles), (rolename) => !_.isEmpty(rolename));
@@ -88,7 +92,7 @@ class GroupService {
     }
   }
 
-  deleteMember(group, memberUsername) {
+  deleteMember(group, memberUsername): ng.IPromise<any> {
     return this.$http.delete([this.groupsURL, group, 'members', memberUsername].join("/"));
   }
 }
